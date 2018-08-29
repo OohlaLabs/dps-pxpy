@@ -7,7 +7,13 @@ import uuid
 import codecs
 from setuptools import setup, find_packages
 from setuptools.command.test import test as TestCommand
-from pip.req import parse_requirements
+
+
+# From https://discuss.frappe.io/t/pip-major-change-on-version-10/724
+try:  # for pip >= 10
+    from pip._internal.req import parse_requirements
+except ImportError:  # for pip <= 9.0.3
+    from pip.req import parse_requirements
 
 
 class Tox(TestCommand):
